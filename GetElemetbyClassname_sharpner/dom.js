@@ -1,24 +1,12 @@
-console.log(document.domain);
-console.log(document.URL);
-console.log(document.title);
-console.log(document.title);
-console.log(document.doctype);
-console.log(document.head);
-console.log(document.body);
-console.log(document.all);
-console.log(document.form[0]);
-
-console.log(document.getElementById);
-headerTittle.textContent="Hello";
-
-//getElementById bt tag name
-
-var li= document.getElementsByTagName('li');
-console.log(li);
-console.log(li[1]);
-li[1].textContent='Hello 2';
-li[1].style.fontWeight='bold';
-li[1].style.backgroundColor='yellow';
-for(var i=0;i<li.length;i++){
-    li[i].style.backgroundColor='#f4f4f4';
-}
+var headline=document.querySelector('#header-title');
+headline.style.color='yellow';
+var card=document.querySelector('.title');
+card.style.color='royalblue';
+var card1=document.querySelector('#items');
+card1.style.color='red';
+var card1=document.querySelector('.list-group-item:last-child');
+card1.style.color='orange';
+var card1=document.querySelector('.list-group-item:nth-child(3)');
+card1.style.color='orange';
+var card1=document.querySelectorAll('.list-group-item');
+card1[1].style.color='orange';
