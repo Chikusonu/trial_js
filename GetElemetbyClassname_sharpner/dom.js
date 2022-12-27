@@ -1,46 +1,67 @@
-var headline=document.querySelector('#header-title');
-headline.style.color='yellow';
-var card=document.querySelector('.title');
-card.style.color='royalblue';
-var card1=document.querySelector('#items');
-card1.style.color='red';
-var card1=document.querySelector('.list-group-item:last-child');
-card1.style.color='orange';
-var card1=document.querySelector('.list-group-item:nth-child(3)');
-card1.style.color='orange';
-var card1=document.querySelectorAll('.list-group-item');
-card1[1].style.color='orange';
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
 
-var itemList=document.querySelector('#items');
-console.log(itemList.parentNode);
+// Form submit event
+form.addEventListener('submit', addItem);
+// Delete event
+itemList.addEventListener('click', removeItem);
+// Filter event
+filter.addEventListener('keyup', filterItems);
 
-//parentElement
-itemList.parentElement.style.backgroundColor='#f4f4f4';
-console.log(itemList.parentElement);
+// Add item
+function addItem(e){
+  e.preventDefault();
 
-//childnodes
-console.log(itemList.childNodes);
+  // Get input value
+  var newItem = document.getElementById('item').value;
 
-console.log(itemList.children);
-console.log(itemList.children[1]);
-itemList.children[1].style.backgroundColor='yellow';
+  // Create new li element
+  var li = document.createElement('li');
+  // Add class
+  li.className = 'list-group-item';
+  // Add text node with input value
+  li.appendChild(document.createTextNode(newItem));
 
-console.log(itemList.firstChild);
+  // Create del button element
+  var deleteBtn = document.createElement('button');
 
-console.log(itemList.firstElementChild);
-itemList.firstElementChild.textContent='Hello';
+  // Add classes to del button
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
-console.log(itemList.nextSibling);
-console.log(itemList.nextElementSibling);
+  // Append text node
+  deleteBtn.appendChild(document.createTextNode('X'));
 
-console.log(itemList.previousSibling);
-console.log(itemList.previousElementSibling);
-itemList.previousElementSibling.style.color='green';
-var newDiv=document.createElement('div');
-newDiv.className='hello';
-console.log(newDiv);
+  // Append button to li
+  li.appendChild(deleteBtn);
 
+  // Append li to list
+  itemList.appendChild(li);
+}
 
+// Remove item
+function removeItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
 
-
-
+// Filter Items
+function filterItems(e){
+  // convert text to lowercase
+  var text = e.target.value.toLowerCase();
+  // Get lis
+  var items = itemList.getElementsByTagName('li');
+  // Convert to an array
+  Array.from(items).forEach(function(item){
+    var itemName = item.firstChild.textContent;
+    if(itemName.toLowerCase().indexOf(text) != -1){
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
